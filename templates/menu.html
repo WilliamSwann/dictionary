@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block pageheading %}
+menu
+{% endblock %}
+
+{% block main %}
+    {% for product in products %}
+        <div class="product-box">
+            <h3>{{ product[0] }}</h3>
+            <p><strong>English: </strong>{{ product[1] }}</p>
+            <p><strong>Category: </strong>{{ product[2] }}</p>
+            <p><strong>Definition: </strong>{{ product[3] }}</p>
+            <p><strong>Level: </strong>{{ product[4] }}</p>
+            <img src="C:/Users/18268/OneDrive - Wellington College/Smilescaf/static/images/{{ product[1] }}.jpg">
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
