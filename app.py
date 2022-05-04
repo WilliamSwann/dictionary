@@ -21,6 +21,14 @@ def create_connection(db_file):
 def render_homepage():
     return render_template('home.html')
 
+    con = create_connection(DB_NAME)
+    query = "SELECT catali FROM catalist"
+    cur = con.cursor()
+    cur.execute(query)
+    cata_list = cur.fetchall()
+    con.close()
+
+    return render_template('home.html', catagories=cata_list)
 
 @app.route('/menu')
 def render_menu_page():
