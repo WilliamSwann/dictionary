@@ -8,7 +8,7 @@ DB_NAME = "C:/Users/18268/Onedrive - Wellington College/smilescaf/smile.db"
 app = Flask(__name__)
 app.secret_key = "89279812712hqwdhak"
 
-
+selected_catagory = Action
 def create_connection(db_file):
     try:
         connection = sqlite3.connect(db_file)
@@ -146,6 +146,17 @@ def is_logged_in():
     else:
         print("logged in")
         return True
+
+@app.route("/catagories")
+def cata_gories():
+    con = create_connection(DB_NAME)
+    query = "SELECT name, english, category, definition, level FROM product"
+    cur = con.cursor()
+    cur.execute(query)
+    product_list = cur.fetchall()
+    con.close()
+
+    return render_template("catagories.html", products=product_list)
 
 
 app.run(host='0.0.0.0', debug=True)
