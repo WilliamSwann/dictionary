@@ -19,13 +19,14 @@ def create_connection(db_file):
 
 @app.route('/')
 def render_homepage():
-    return render_template('home.html')
-
+    #return render_template('home.html')
+    print("aaaauuuhhhh")
     con = create_connection(DB_NAME)
-    query = "SELECT catali FROM catalist"
+    query = """SELECT catali FROM catalist"""
     cur = con.cursor()
     cur.execute(query)
     cata_list = cur.fetchall()
+    con.commit()
     con.close()
 
     return render_template('home.html', catagories=cata_list)
@@ -39,6 +40,7 @@ def render_menu_page():
     cur.execute(query)
     product_list = cur.fetchall()
     con.close()
+
 
     return render_template('menu.html', products=product_list)
 
