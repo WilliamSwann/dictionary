@@ -1,0 +1,65 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Suez+One&display=swap" rel="stylesheet">
+	<title>{% block title %}{% endblock %}</title>
+	<meta name="Description" content="Author: D Benseman, Content: A dictionary to convert maori words to english.">
+</head>
+
+<body>
+	<div id="container">
+
+		<header>
+			<h1>{% block heading %}{% endblock %}</h1>
+		</header>
+
+		<nav>
+            <input type="checkbox" name="drop_down_menu" />
+			<span></span>
+			<span></span>
+			<span></span>
+			<ul>
+                <li><a href="\">Home</a></li>
+				<a href="/">home</a><li>
+            <a href="/menu">menu</a><li>
+            <a href="/contact">contact</a><li>
+            <a href="/login">login</a><li>
+            <a href="/logout">logout</a><li>
+				<p>--------</p>
+
+				<ul>
+    {% for catalist in catagories %}
+        <div>
+            <a href="/menu">{{ catalist[0] }}</a>
+        </div>
+    {% endfor %}
+        </ul>
+
+
+			</ul>
+		</nav>
+
+
+		<!--
+		=====================================================
+		== Content row of the template.                 ==
+		=====================================================
+		-->
+
+		<main>
+            {% block main%}{% endblock %}
+        </main>
+
+
+		<footer>
+			<p>
+				&copy; Enter your name here 2020
+			</p>
+		</footer>
+
+	</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ import sqlite3
 from sqlite3 import Error
 
 DB_NAME = "C:/Users/18268/Onedrive - Wellington College/smilescaf/smile.db"
+#DB_NAME = "C:/Users/wmobi/Desktop/Smile/smile.db"
 
 app = Flask(__name__)
 app.secret_key = "89279812712hqwdhak"
@@ -19,7 +20,7 @@ def create_connection(db_file):
 
 @app.route('/')
 def render_homepage():
-    #return render_template('home.html')
+
     print("aaaauuuhhhh")
     con = create_connection(DB_NAME)
     query = """SELECT catali FROM catalist"""
@@ -41,12 +42,24 @@ def render_menu_page():
     product_list = cur.fetchall()
     con.close()
 
+    con = create_connection(DB_NAME)
+    query = """SELECT catali FROM catalist"""
+    cur = con.cursor()
+    cur.execute(query)
+    cata_list = cur.fetchall()
+    con.commit()
+    con.close()
+    print("aaaauuuhhhh")
 
-    return render_template('menu.html', products=product_list)
+
+
+    return render_template('menu.html', products=product_list, catagories=cata_list)
 
 
 @app.route('/contact')
 def render_contact_page():
+
+
     return render_template('contact.html')
 
 

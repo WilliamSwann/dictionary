@@ -21,10 +21,24 @@ body {
     content: "";
     clear: both;
     display: table;
+
+}
+.sidenav_ {
+    width: 12vw;
+    margin: 15px;
+    background-color: rgba(52, 73, 94, 1.0);
+    color: rgba(236, 240, 241, 1.0);
+}
+
+.sidenav_::after {
+    content: "";
+    clear: both;
+    display: table;
+
 }
 
 img {
-    max-width: 100%;
+    max-width: 100px;
 }
 
 h1 {
@@ -48,6 +62,17 @@ nav {
     padding-top: 0.8rem;
     padding-bottom: 0.7rem;
     color: rgba(52, 152, 219, 1.0); /*light blue*/
+
+}
+nav2 {
+    text-align: center;
+    /*color: rgba(52, 152, 219, 1.0);!*light blue*!*/
+    font-size: 1.5rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.7rem;
+    color: rgba(52, 152, 219, 1.0); /*light blue*/
+
+
 }
 
 .navbar-brand {
@@ -70,10 +95,16 @@ nav a {
 }
 
 nav a:hover {
-    /*color: rgba(44, 62, 80, 1.0); !* darkest blue *!*/
-    /*background-color: rgba(52, 152, 219, 1.0); !*light blue*!*/
+    color: rgba(44, 62, 80, 1.0);
+    background-color: rgba(52, 152, 219, 1.0);
     border-bottom: 3px solid rgba(52, 152, 219, 1.0);
 }
+nav2 a:hover {
+    color: rgba(44, 62, 80, 1.0);
+    background-color: rgba(52, 152, 219, 1.0);
+    border-bottom: 3px solid rgba(52, 152, 219, 1.0);
+}
+
 
 a, a:visited {
     color: rgba(52, 152, 219, 1.0);
@@ -82,7 +113,7 @@ a, a:visited {
 }
 
 .product-box img {
-    /*max-width:200px;*/
+    max-width:200px;
 }
 
 .products {
@@ -92,12 +123,12 @@ a, a:visited {
 }
 
 .product-box {
-    /*width: 13vw;*/
-    width: 32%;
-    /*float: left;*/
-    /*display: table-cell;*/
-    /*padding: 0.5rem;*/
-    /*margin: 1vw;*/
+    width: 13vw;
+    width: 100%;
+    float: left;
+    display: table-cell;
+    padding: 0.5rem;
+    margin: 1vw;
     border: 1px solid rgba(189, 195, 199, 1.0);
     color: rgba(44, 62, 80, 1.0);
     margin-bottom: 0.5rem;
