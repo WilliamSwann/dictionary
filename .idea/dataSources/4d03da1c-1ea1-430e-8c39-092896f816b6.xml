@@ -1381,7 +1381,6 @@
     <column id="504" parent="172" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="505" parent="172" name="name">
       <Position>2</Position>
@@ -1403,34 +1402,38 @@
       <Position>6</Position>
       <DataType>varchar(3)|0s</DataType>
     </column>
-    <key id="510" parent="172" name="product_pk">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="511" parent="173" name="type">
+    <column id="510" parent="172" name="catagory_id">
+      <Position>7</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="511" parent="172" name="image">
+      <Position>8</Position>
+      <DataType>varchar(100)|0s</DataType>
+    </column>
+    <column id="512" parent="173" name="type">
       <Position>1</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="512" parent="173" name="name">
+    <column id="513" parent="173" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="513" parent="173" name="tbl_name">
+    <column id="514" parent="173" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="514" parent="173" name="rootpage">
+    <column id="515" parent="173" name="rootpage">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="515" parent="173" name="sql">
+    <column id="516" parent="173" name="sql">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="516" parent="174" name="name">
+    <column id="517" parent="174" name="name">
       <Position>1</Position>
     </column>
-    <column id="517" parent="174" name="seq">
+    <column id="518" parent="174" name="seq">
       <Position>2</Position>
     </column>
   </database-model>

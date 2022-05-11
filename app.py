@@ -3,12 +3,12 @@ import sqlite3
 from sqlite3 import Error
 
 DB_NAME = "C:/Users/18268/Onedrive - Wellington College/smilescaf/smile.db"
-#DB_NAME = "C:/Users/wmobi/Desktop/Smile/smile.db"
-
+#DB_NAME = "C:/Users/wmobi/Onedrive - Wellington College/smilescaf/smile.db"
+#DB_NAME = "smile.db"
 app = Flask(__name__)
 app.secret_key = "89279812712hqwdhak"
 
-selected_catagory = Action
+
 def create_connection(db_file):
     try:
         connection = sqlite3.connect(db_file)
@@ -17,6 +17,16 @@ def create_connection(db_file):
         print(e)
 
     return None
+
+def sidenav1():
+    con = create_connection(DB_NAME)
+    query = """SELECT catali FROM catalist"""
+    cur = con.cursor()
+    cur.execute(query)
+    cata_list = cur.fetchall()
+    con.commit()
+    con.close()
+    return cata_list
 
 @app.route('/')
 def render_homepage():
@@ -36,20 +46,13 @@ def render_homepage():
 def render_menu_page():
 
     con = create_connection(DB_NAME)
-    query = "SELECT name, english, category, definition, level FROM product"
+    query = "SELECT name, english, category, definition, level, image FROM product"
     cur = con.cursor()
     cur.execute(query)
     product_list = cur.fetchall()
     con.close()
 
-    con = create_connection(DB_NAME)
-    query = """SELECT catali FROM catalist"""
-    cur = con.cursor()
-    cur.execute(query)
-    cata_list = cur.fetchall()
-    con.commit()
-    con.close()
-    print("aaaauuuhhhh")
+    cata_list = sidenav1()
 
 
 
@@ -59,14 +62,15 @@ def render_menu_page():
 @app.route('/contact')
 def render_contact_page():
 
-
-    return render_template('contact.html')
+    cata_list = sidenav1()
+    return render_template('contact.html',  catagories=cata_list)
 
 
 
 
 @app.route('/login', methods=["GET", "POST"])
 def render_login_page():
+    cata_list = sidenav1()
     if request.method == "POST":
         email = request.form['email'].strip().lower()
         password = request.form['password'].strip()
@@ -94,13 +98,14 @@ def render_login_page():
         print(session)
         return redirect("/")
 
-    return render_template('login.html', logged_in=is_logged_in())
+    return render_template('login.html', logged_in=is_logged_in(), catagories=cata_list)
 
 
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def render_signup_page():
+    cata_list = sidenav1()
     if request.method == 'POST':
         print(request.form)
         fname = request.form.get('fname').strip().title()
@@ -129,7 +134,7 @@ def render_signup_page():
         con.close()
         return redirect("/login")
 
-    return render_template('signup.html')
+    return render_template('signup.html', catagories=cata_list)
 
 @app.route("/logout")
 def logout():
@@ -149,6 +154,7 @@ def is_logged_in():
 
 @app.route("/catagories")
 def cata_gories():
+    cata_list = sidenav1()
     con = create_connection(DB_NAME)
     query = "SELECT name, english, category, definition, level FROM product"
     cur = con.cursor()
@@ -156,7 +162,6 @@ def cata_gories():
     product_list = cur.fetchall()
     con.close()
 
-    return render_template("catagories.html", products=product_list)
-
+    return render_template("catagories.html", products=product_list, catagories=cata_list)
 
 app.run(host='0.0.0.0', debug=True)
