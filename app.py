@@ -33,7 +33,7 @@ def render_homepage():
     cata_list = sidenav1()
 
 
-    return render_template('home.html', catagories=cata_list)
+    return render_template('home.html', catagories=cata_list, logged_in=is_logged_in())
 
 @app.route('/menu')
 def render_menu_page():
@@ -56,7 +56,7 @@ def render_menu_page():
 def render_contact_page():
 
     cata_list = sidenav1()
-    return render_template('contact.html',  catagories=cata_list)
+    return render_template('contact.html',  catagories=cata_list, logged_in=is_logged_in())
 
 
 
@@ -127,7 +127,7 @@ def render_signup_page():
         con.close()
         return redirect("/login")
 
-    return render_template('signup.html', catagories=cata_list)
+    return render_template('signup.html', catagories=cata_list, logged_in=is_logged_in())
 
 @app.route("/logout")
 def logout():
@@ -162,7 +162,7 @@ def render_catagories(cata_id):
     cata_names_list = cur.fetchall()
     con.close()
 
-    return render_template("catagories.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list)
+    return render_template("catagories.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list, logged_in=is_logged_in())
 
 @app.route("/name/<name_id>")
 def render_maoriword(name_id):
@@ -179,7 +179,7 @@ def render_maoriword(name_id):
     cur.execute(query, (maori_list[0][3],))
     cata_names_list = cur.fetchall()
     
-    return render_template("name.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list)
+    return render_template("name.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list, logged_in=is_logged_in())
 
 
 app.run(host='0.0.0.0', debug=True)

@@ -12,7 +12,10 @@
 	<div id="container">
 
 		<header>
-			<h1>{% block heading %}{% endblock %}</h1>
+			<h1>Maori{% block heading %}{% endblock %}</h1>
+			{% if logged_in %}
+			<strong>Hello, {{ session.firstname }}</strong>
+			{% endif %}
 		</header>
 
 		<nav>
@@ -24,8 +27,12 @@
                 <li><a href="\">home</a></li>
             <a href="/menu">menu</a><li>
             <a href="/contact">contact</a><li>
+			{% if logged_in %}
+			<a href="/logout">logout</a><li>
+			{% else %}
             <a href="/login">login</a><li>
-            <a href="/logout">logout</a><li>
+			{% endif %}
+
 				<p><><><><><></p>
 
 			{% for catalist in catagories %}
