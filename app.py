@@ -20,7 +20,7 @@ def create_connection(db_file):
 
 def sidenav1():
     con = create_connection(DB_NAME)
-    query = """SELECT catali FROM catalist"""
+    query = """SELECT cata_id, catali FROM catalist ORDER BY catali"""
     cur = con.cursor()
     cur.execute(query)
     cata_list = cur.fetchall()
@@ -30,15 +30,8 @@ def sidenav1():
 
 @app.route('/')
 def render_homepage():
+    cata_list = sidenav1()
 
-    print("aaaauuuhhhh")
-    con = create_connection(DB_NAME)
-    query = """SELECT catali FROM catalist"""
-    cur = con.cursor()
-    cur.execute(query)
-    cata_list = cur.fetchall()
-    con.commit()
-    con.close()
 
     return render_template('home.html', catagories=cata_list)
 
@@ -152,16 +145,41 @@ def is_logged_in():
         print("logged in")
         return True
 
-@app.route("/catagories")
-def cata_gories():
+@app.route("/catagories/<cata_id>", methods=["GET", "POST"])
+def render_catagories(cata_id):
     cata_list = sidenav1()
+
     con = create_connection(DB_NAME)
-    query = "SELECT name, english, category, definition, level FROM product"
+    query = """SELECT name_id, name, english, cata_id, category, definition, level, image FROM product WHERE cata_id=? ORDER BY name, english"""
     cur = con.cursor()
-    cur.execute(query)
-    product_list = cur.fetchall()
+    cur.execute(query, (cata_id,))
+    maori_list = cur.fetchall()
+
+    con = create_connection(DB_NAME)
+    query = """SELECT cata_id, catali FROM catalist WHERE cata_id=?"""
+    cur = con.cursor()
+    cur.execute(query, (cata_id,))
+    cata_names_list = cur.fetchall()
     con.close()
 
-    return render_template("catagories.html", products=product_list, catagories=cata_list)
+    return render_template("catagories.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list)
+
+@app.route("/name/<name_id>")
+def render_maoriword(name_id):
+    cata_list = sidenav1()
+
+    con = create_connection(DB_NAME)
+    query = """SELECT name_id, name, english, cata_id, category, definition, level, image FROM product WHERE name_id=? ORDER BY name"""
+    cur = con.cursor()
+    cur.execute(query, (name_id,))
+    maori_list = cur.fetchall()
+    
+    query = """SELECT cata_id, catali FROM catalist WHERE cata_id=?"""
+    cur = con.cursor()
+    cur.execute(query, (maori_list[0][3],))
+    cata_names_list = cur.fetchall()
+    
+    return render_template("name.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list)
+
 
 app.run(host='0.0.0.0', debug=True)

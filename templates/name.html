@@ -1,0 +1,18 @@
+{% extends 'base1.html' %}
+
+{% block title %}test{% endblock %}
+
+
+
+{% block main %}
+
+           {% for product in maori%}
+                <h1>{{ product[1] }}</h1>
+                <p><strong>English: </strong>{{ product[2] }}</p>
+                <p><strong>Category: </strong>{{ product[4] }}</p>
+                <p><strong>Definition: </strong>{{ product[5] }}</p>
+                <p><strong>Level: </strong>{{ product[6] }}</p>
+                <p><strong>image: </strong>{{ product[7] }}</p>
+                <img src="/static/images/{{ product[7] }}">
+            {%endfor%}
+{% endblock %}

@@ -1335,17 +1335,17 @@
     <argument id="493" parent="159">
       <Position>1</Position>
     </argument>
-    <column id="494" parent="170" name="id">
+    <column id="494" parent="170" name="catali">
       <Position>1</Position>
-      <DataType>INTEGER|0s</DataType>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="495" parent="170" name="catali">
-      <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
     </column>
+    <column id="495" parent="170" name="cata_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
     <key id="496" parent="170" name="catalist_pk">
-      <ColNames>id</ColNames>
+      <ColNames>cata_id</ColNames>
       <Primary>1</Primary>
     </key>
     <column id="497" parent="171" name="id">
@@ -1378,9 +1378,10 @@
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="504" parent="172" name="id">
+    <column id="504" parent="172" name="name_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="505" parent="172" name="name">
       <Position>2</Position>
@@ -1402,38 +1403,42 @@
       <Position>6</Position>
       <DataType>varchar(3)|0s</DataType>
     </column>
-    <column id="510" parent="172" name="catagory_id">
+    <column id="510" parent="172" name="image">
       <Position>7</Position>
-      <DataType>INTEGER|0s</DataType>
-    </column>
-    <column id="511" parent="172" name="image">
-      <Position>8</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="512" parent="173" name="type">
+    <column id="511" parent="172" name="cata_id">
+      <Position>8</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <key id="512" parent="172" name="product_pk">
+      <ColNames>name_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="513" parent="173" name="type">
       <Position>1</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="513" parent="173" name="name">
+    <column id="514" parent="173" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="514" parent="173" name="tbl_name">
+    <column id="515" parent="173" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="515" parent="173" name="rootpage">
+    <column id="516" parent="173" name="rootpage">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="516" parent="173" name="sql">
+    <column id="517" parent="173" name="sql">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="517" parent="174" name="name">
+    <column id="518" parent="174" name="name">
       <Position>1</Position>
     </column>
-    <column id="518" parent="174" name="seq">
+    <column id="519" parent="174" name="seq">
       <Position>2</Position>
     </column>
   </database-model>

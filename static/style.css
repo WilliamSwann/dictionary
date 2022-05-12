@@ -13,7 +13,7 @@
 
 header {
     grid-area: header;
-    background-color: #f00;
+    background-color: #809eff;
     padding: 1rem;
 }
 
@@ -67,7 +67,7 @@ img {
 }
 
 .error {
-    color: #f00;
+    color: #809eff;
 }
 
 .login {
@@ -98,11 +98,11 @@ img .thumb {
 footer {
     grid-area: footer;
     padding: 1rem;
-    background-color: #f00;
+    background-color: #809eff;
 }
 
 footer p {
-    color: #000;
+    color: #000000;
     text-shadow: 2px 2px 4px #fff;
     font-size: 1.5rem;
 }
@@ -134,7 +134,7 @@ footer img {
 
     nav a:hover
     {
-      color: tomato;
+      color: #416af1;
     }
 
 
@@ -228,7 +228,7 @@ footer img {
       padding: 50px;
       padding-top: 125px;
 
-      background: #ed9999;
+      background: #809eff;
       list-style-type: none;
       -webkit-font-smoothing: antialiased;
       /* to stop flickering of text in safari */
@@ -260,7 +260,7 @@ footer img {
     }
 
     nav {
-        background: linear-gradient(180deg, rgba(255,0,0,1) 0%, rgba(0, 0, 0, 1) 50%,  rgba(255,0,0,1) 100%);
+        background: linear-gradient(180deg, rgb(128, 158, 255) 0%, rgb(0, 42, 255) 50%, rgb(128, 158, 255) 100%);
         padding: 0.5rem;
     }
 

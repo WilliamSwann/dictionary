@@ -1,6 +1,21 @@
 {% extends 'base1.html' %}
 
-{% block pageheading %}
-{% endblock %}
+{% block title %}{{ cata_names_list[0][1] }}{% endblock %}
+
 {% block main %}
+        <h1>{{ cata_names_list[0][1] }}</h1>
+
+        {% for product in maori %}
+
+            <a href="/name/{{product[0]}}"><h2>{{ product[1] }}</h2></a>
+            <p><strong>English: </strong>{{ product[2] }}</p>
+
+
+
+
+        {% endfor %}
+
+
+
+
 {% endblock %}
