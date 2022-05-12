@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, session, redirect
 import sqlite3
 from sqlite3 import Error
+from flask_bcrypt import Bcrypt
 
 DB_NAME = "C:/Users/18268/Onedrive - Wellington College/smilescaf/smile.db"
 #DB_NAME = "C:/Users/wmobi/Onedrive - Wellington College/smilescaf/smile.db"
 #DB_NAME = "smile.db"
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.secret_key = "89279812712hqwdhak"
 
 
@@ -63,6 +65,8 @@ def render_contact_page():
 
 @app.route('/login', methods=["GET", "POST"])
 def render_login_page():
+    if is_logged_in():
+        redirect('/')
     cata_list = sidenav1()
     if request.method == "POST":
         email = request.form['email'].strip().lower()
@@ -82,8 +86,8 @@ def render_login_page():
         except IndexError:
             return redirect("/login?error=Email+andor+password+incorrect")
 
-        if db_password != password:
-            return redirect("/login?error=Email+andor+password+incorrect")
+        if not bcrypt.check_password_hash(db_password,password):
+            return redirect(request.referrer +"?error=Email+andor+password+incorrect")
 
         session['email'] = email
         session['userid'] = userid
@@ -98,6 +102,8 @@ def render_login_page():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def render_signup_page():
+    if is_logged_in():
+        redirect('/')
     cata_list = sidenav1()
     if request.method == 'POST':
         print(request.form)
@@ -113,13 +119,13 @@ def render_signup_page():
         if len(password)<8:
             return redirect('/signup?error=Password+must+be+8+characters+or+more')
 
-
+        hashed_password = bcrypt.generate_password_hash(password)
         con = create_connection(DB_NAME)
         query = "INSERT INTO customer(id, fname, lname, email, password) VALUES(NULL,?,?,?,?)"
 
         cur = con.cursor()
         try:
-            cur.execute(query, (fname, lname, email, password))
+            cur.execute(query, (fname, lname, email, hashed_password))
         except sqlite3.IntegrityError:
             return redirect('/signup?error=Email+already+in+use')
 
@@ -180,6 +186,109 @@ def render_maoriword(name_id):
     cata_names_list = cur.fetchall()
     
     return render_template("name.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list, logged_in=is_logged_in())
+
+@app.route("/addcategory/<cata_id>", methods=["GET","POST"])
+def render_addcategory(cata_id):
+    cata_list = sidenav1()
+    if request.method == "POST" and is_logged_in():
+        catali = request.form.get('catali').strip().title()
+
+        con = create_connection(DB_NAME)
+        query = "INSERT INTO catalist(cata_id, catali) VALUES(NULL,?)"
+        cur = con.cursor()
+        try:
+            cur.execute(query, (catali,))
+        except sqlite3.IntegrityError:
+            return redirect('/?error=DIDNTWORK')
+
+        con.commit()
+        con.close()
+        return redirect("/")
+
+    return render_template("addcategory.html", catagories=cata_list, logged_in=is_logged_in())
+
+@app.route("/addword/<name_id>", methods=["GET","POST"])
+def render_addword(name_id):
+    cata_list = sidenav1()
+    if request.method == "POST":
+        name = request.form.get('name').strip().title()
+        english = request.form.get('english').strip().title()
+        definition = request.form.get('definition').strip()
+        level = request.form.get('level')
+        cata_id = request.form.get('cata_id')
+        image = "noimage.png"
+
+
+
+        con = create_connection(DB_NAME)
+        query = "INSERT INTO product(name_id, name, english, definition, level, cata_id, image) VALUES(NULL,?,?,?,?,?,?)"
+        cur = con.cursor()
+        try:
+
+            cur.execute(query, (name, english, definition, level, cata_id, image,))
+        except sqlite3.IntegrityError:
+            return redirect('/?error=DIDNTWORK')
+
+        con.commit()
+        con.close()
+        return redirect("/")
+
+    return render_template("addword.html", catagories=cata_list, logged_in=is_logged_in())
+
+
+@app.route("/deletecategory/<cata_id>", methods=["GET","POST"])
+def render_deletecategory(cata_id):
+    cata_list = sidenav1()
+    if request.method == "POST" and is_logged_in():
+        cata_id = request.form.get('cata_id')
+
+        con = create_connection(DB_NAME)
+        query = "DELETE FROM catalist WHERE cata_id=?"
+        cur = con.cursor()
+        try:
+            cur.execute(query, (cata_id,))
+        except sqlite3.IntegrityError:
+            return redirect('/?error=DIDNTWORK')
+
+        query = "DELETE FROM product WHERE cata_id=?"
+        cur = con.cursor()
+        try:
+            cur.execute(query, (cata_id,))
+        except sqlite3.IntegrityError:
+            return redirect('/?error=DIDNTWORK')
+
+        con.commit()
+        con.close()
+        return redirect("/")
+
+    return render_template("deletecategory.html", catagories=cata_list, logged_in=is_logged_in())
+
+@app.route("/deleteword/<name_id>", methods=["GET","POST"])
+def render_deleteword(name_id):
+    cata_list = sidenav1()
+    if request.method == "POST" and is_logged_in():
+        name_id = request.form.get('name_id')
+
+        con = create_connection(DB_NAME)
+        query = "SELECT name, english, category, definition, level, image FROM product"
+        cur = con.cursor()
+        cur.execute(query)
+        product_list = cur.fetchall()
+
+        query = "DELETE FROM product WHERE name_id=?"
+        cur = con.cursor()
+        try:
+            cur.execute(query, (name_id,))
+        except sqlite3.IntegrityError:
+            return redirect('/?error=DIDNTWORK69')
+
+        con.commit()
+        con.close()
+
+
+
+
+    return render_template("deleteword.html", products=product_list, catagories=cata_list, logged_in=is_logged_in())
 
 
 app.run(host='0.0.0.0', debug=True)

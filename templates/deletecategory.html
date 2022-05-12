@@ -1,0 +1,24 @@
+{% extends "base1.html" %}
+
+{% block pageheading %}
+Delete Category
+{% endblock %}
+
+{% block main %}
+<form class="dataForm" method="post">
+    <div class="form-group">
+        <label for="cata_id">Category to delete:</label>
+
+        <select name="cata_id" id="cata_id">
+        {% for catalist in catagories %}
+              <option value="{{ catalist[0] }}">{{ catalist[1] }}</option>
+                    {% endfor %}
+        </select>
+    </div>
+    <div class="button-group">
+        <input type="submit" value="submit">
+        <input type="reset" value="Reset">
+    </div>
+
+</form>
+{% endblock %}

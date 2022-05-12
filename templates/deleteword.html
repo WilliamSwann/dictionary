@@ -1,0 +1,25 @@
+{% extends "base1.html" %}
+
+{% block pageheading %}
+Delete {{maori[0][1]}}
+{% endblock %}
+
+{% block main %}
+Delete Word
+<form class="dataForm" method="post">
+    <div class="form-group">
+        <label for="name_id">Word to delete:</label>
+
+        <select name="name_id" id="name_id">
+        {% for product in products %}
+              <option value="{{ product[0] }}">{{ product[1] }}</option>
+                    {% endfor %}
+        </select>
+    </div>
+    <div class="button-group">
+        <input type="submit" value="submit">
+        <input type="reset" value="Reset">
+    </div>
+
+</form>
+{% endblock %}

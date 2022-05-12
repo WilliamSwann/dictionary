@@ -41,6 +41,15 @@
         </div>
     		{% endfor %}
 
+			{% if logged_in %}
+
+				<p><><>ADMIN<><></p>
+			<a href="/addcategory/1">Add Category</a><li>
+			<a href="/addword/1">Add Word</a><li>
+			<a href="/deletecategory/1">Delete Category</a><li>
+			<a href="/">Delete Word</a><li>
+
+			{%endif%}
 
 
 

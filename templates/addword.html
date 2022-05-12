@@ -1,0 +1,42 @@
+{% extends "base1.html" %}
+
+{% block pageheading %}
+Add Word
+{% endblock %}
+
+{% block main %}
+<form class="dataForm" method="post">
+    <div class="form-group">
+        <div class="form-label">Word name:</div>
+        <div class="form-element"><input id="name" name="name" type="text" required></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label">English:</div>
+        <div class="form-element"><input id="english" name="english" type="text" required></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label">Definition:</div>
+        <div class="form-element"><input id="definition" name="definition" type="text" required></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label">Word Level:</div>
+        <div class="form-element"><input id="level" name="level" type="range" min="1" max="10" required></div>
+    </div>
+    <div class="form-group">
+        <label for="cata_id">Category:</label>
+
+        <select name="cata_id" id="cata_id">
+        {% for catalist in catagories %}
+              <option value="{{ catalist[0] }}">{{ catalist[1] }}</option>
+                    {% endfor %}
+        </select>
+
+
+    </div>
+    <div class="button-group">
+        <input type="submit" value="submit">
+        <input type="reset" value="Reset">
+    </div>
+
+</form>
+{% endblock %}

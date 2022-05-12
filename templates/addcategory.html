@@ -1,0 +1,19 @@
+{% extends "base1.html" %}
+
+{% block pageheading %}
+Add Category
+{% endblock %}
+
+{% block main %}
+<form class="dataForm" method="post">
+    <div class="form-group">
+        <div class="form-label">Category name:</div>
+        <div class="form-element"><input id="catali" name="catali" type="text" required></div>
+    </div>
+    <div class="button-group">
+        <input type="submit" value="submit">
+        <input type="reset" value="Reset">
+    </div>
+
+</form>
+{% endblock %}

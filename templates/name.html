@@ -1,6 +1,6 @@
 {% extends 'base1.html' %}
 
-{% block title %}test{% endblock %}
+{% block title %}{{ maori[0][1] }}{% endblock %}
 
 
 
@@ -14,5 +14,11 @@
                 <p><strong>Level: </strong>{{ product[6] }}</p>
                 <p><strong>image: </strong>{{ product[7] }}</p>
                 <img src="/static/images/{{ product[7] }}">
-            {%endfor%}
+            {% if logged_in %}
+
+			<a href="/deleteword/{{ product[0] }}">Delete {{maori[0][1]}} </a><li>
+
+			{%endif%}
+                {%endfor%}
+
 {% endblock %}
