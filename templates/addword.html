@@ -20,7 +20,10 @@ Add Word
     </div>
     <div class="form-group">
         <div class="form-label">Word Level:</div>
+        <lable>&nbsp1__________2__________3__________4__________5__________6__________7__________8__________9__________10</lable>
         <div class="form-element"><input id="level" name="level" type="range" min="1" max="10" required></div>
+        <lable></lable>
+
     </div>
     <div class="form-group">
         <label for="cata_id">Category:</label>
@@ -30,9 +33,8 @@ Add Word
               <option value="{{ catalist[0] }}">{{ catalist[1] }}</option>
                     {% endfor %}
         </select>
-
-
     </div>
+
     <div class="button-group">
         <input type="submit" value="submit">
         <input type="reset" value="Reset">

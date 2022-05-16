@@ -8,17 +8,21 @@ Delete {{maori[0][1]}}
 Delete Word
 <form class="dataForm" method="post">
     <div class="form-group">
-        <label for="name_id">Word to delete:</label>
+        <label for="name_id">Are you sure you would like to delete the word:</label>
 
         <select name="name_id" id="name_id">
         {% for product in products %}
-              <option value="{{ product[0] }}">{{ product[1] }}</option>
+            {% if product[1] == name %}
+              <option value="{{ product[0] }}" selected>{{ product[1] }} ({{ product[0] }})</option>
+            {% else %}
+                <option value="{{ product[0] }}">{{ product[1] }} ({{ product[0] }})</option>
+            {% endif %}
                     {% endfor %}
         </select>
     </div>
     <div class="button-group">
-        <input type="submit" value="submit">
-        <input type="reset" value="Reset">
+        <input type="submit" value="Yes">
+        <a href="\"><input value="No" ></a>
     </div>
 
 </form>

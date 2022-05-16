@@ -3,18 +3,35 @@
 {% block title %}{{ cata_names_list[0][1] }}{% endblock %}
 
 {% block main %}
-        <h1>{{ cata_names_list[0][1] }}</h1>
+        <h1>{{ cata_names_list[0][1] }} </h1>
+        {% if teacher %}
+        <a href="/deletecategory/{{cata_names_list[0][0]}}"><strong>Delete Category</strong></a>
+        {% endif %}
 
+        <table>
+            <tr>
+                <th>Maori</th>
+                <th>English</th>
+                <th>Thumbnail</th>
+            </tr>
 
         {% for product in maori %}
-
-            <a href="/name/{{product[0]}}"><h2>{{ product[1] }}</h2></a>
-            <p><strong>English: </strong>{{ product[2] }}</p>
-
-
-
-
+        <tr>
+            <td><a href="/name/{{product[0]}}"><h2>{{ product[1] }}</h2></a></td>
+            <td><p><strong>English: </strong>{{ product[2] }}</p></td>
+            <td><img src="/static/images/{{ product[7] }}" class="tableImage"></td>
+        </tr>
         {% endfor %}
+
+        </table>
+
+
+
+
+
+
+
+
 
 
 

@@ -9,14 +9,52 @@
            {% for product in maori%}
                 <h1>{{ product[1] }}</h1>
                 <p><strong>English: </strong>{{ product[2] }}</p>
-                <p><strong>Category: </strong>{{ product[4] }}</p>
                 <p><strong>Definition: </strong>{{ product[5] }}</p>
                 <p><strong>Level: </strong>{{ product[6] }}</p>
                 <p><strong>image: </strong>{{ product[7] }}</p>
+                <p><strong>last edited by: </strong>{{ product[9] }}</p>
+                <p><strong>last edited: </strong>{{ product[8] }}</p>
                 <img src="/static/images/{{ product[7] }}">
-            {% if logged_in %}
 
-			<a href="/deleteword/{{ product[0] }}">Delete {{maori[0][1]}} </a><li>
+            {% if logged_in and teacher %}
+            <form class="dataForm" method="post">
+    <div class="form-group">
+        <div class="form-label">Edit maori name:</div>
+        <div class="form-element"><input id="name" name="name" type="text" required value="{{product[1]}}"></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label">Edit english name:</div>
+        <div class="form-element"><input id="english" name="english" type="text" required value="{{product[2]}}"></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label">Edit Definition:</div>
+        <div class="form-element"><input id="definition" name="definition" type="text" required value="{{product[5]}}"></div>
+    </div>
+    <div class="form-group">
+        <div class="form-label">Edit word level:</div>
+        <lable>&nbsp1__________2__________3__________4__________5__________6__________7__________8__________9__________10</lable>
+        <div class="form-element"><input id="level" name="level" type="range" min="1" max="10" required value="{{product[6]}}"></div>
+        <lable></lable>
+
+    </div>
+    <div class="form-group">
+        <label for="cata_id">Change word category:</label>
+
+        <select name="cata_id" id="cata_id">
+        {% for catalist in catagories %}
+              <option value="{{ catalist[0] }}">{{ catalist[1] }}</option>
+                    {% endfor %}
+        </select>
+    </div>
+
+    <div class="button-group">
+        <input type="submit" value="Confim Edit">
+        <input type="reset" value="Reset">
+    </div>
+
+</form>
+
+			<a href="/deleteword?name={{ product[2] }}"><strong>Delete {{maori[0][1]}} </strong></a>
 
 			{%endif%}
                 {%endfor%}

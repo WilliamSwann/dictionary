@@ -7,18 +7,17 @@ Delete Category
 {% block main %}
 <form class="dataForm" method="post">
     <div class="form-group">
-        <label for="cata_id">Category to delete:</label>
+        <label>Are you sure you would like to delete the category {{cata_names_list[0][1]}}?</label>
+        <div>
+                <div></div>
+                <div><input class="button" name="submit" type="submit" value="DELETE CATAGORY (!!CANNOT BE UNDONE!!)"></div>
+        </div>
+        <div>
+                <div></div>
+                <a href="\"><input value="No" ></a>
+        </div>
+    </div>
 
-        <select name="cata_id" id="cata_id">
-        {% for catalist in catagories %}
-              <option value="{{ catalist[0] }}">{{ catalist[1] }}</option>
-                    {% endfor %}
-        </select>
-    </div>
-    <div class="button-group">
-        <input type="submit" value="submit">
-        <input type="reset" value="Reset">
-    </div>
 
 </form>
 {% endblock %}

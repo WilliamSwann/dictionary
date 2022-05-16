@@ -16,6 +16,9 @@
 			{% if logged_in %}
 			<strong>Hello, {{ session.firstname }}</strong>
 			{% endif %}
+			{% if teacher %}
+			<strong>(ADMIN)</strong>
+			{% endif %}
 		</header>
 
 		<nav>
@@ -24,9 +27,8 @@
 			<span></span>
 			<span></span>
 			<ul>
-                <li><a href="\">home</a></li>
-            <a href="/menu">menu</a><li>
-            <a href="/contact">contact</a><li>
+                <li><a href="\">Home</a></li>
+            <a href="/contact">About Us</a><li>
 			{% if logged_in %}
 			<a href="/logout">logout</a><li>
 			{% else %}
@@ -41,13 +43,12 @@
         </div>
     		{% endfor %}
 
-			{% if logged_in %}
+			{% if logged_in and teacher %}
 
 				<p><><>ADMIN<><></p>
-			<a href="/addcategory/1">Add Category</a><li>
-			<a href="/addword/1">Add Word</a><li>
-			<a href="/deletecategory/1">Delete Category</a><li>
-			<a href="/">Delete Word</a><li>
+			<a href="/addcategory">Add Category</a><li>
+			<a href="/addword">Add Word</a><li>
+
 
 			{%endif%}
 
