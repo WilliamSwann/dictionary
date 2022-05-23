@@ -22,7 +22,7 @@ def create_connection(db_file):
     return None
 
 
-def sidenav1():
+def sidenav1(): #this function grabs all of the items from the product table and puts them into a list for the side nav
     con = create_connection(DB_NAME)
     query = """SELECT cata_id, catali FROM catalist ORDER BY catali"""
     cur = con.cursor()
@@ -33,18 +33,20 @@ def sidenav1():
     return cata_list
 
 
-@app.route('/', methods=['GET', 'POST'])
+
+
+@app.route('/', methods=['GET', 'POST'])  #this function
 def render_homepage():
-    cata_list = sidenav1()
+    cata_list = sidenav1() #grabbing assets for sidenav
 
     return render_template('home.html', catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher())
-
+    #rendering home.html and returning all of the variables needed in the html
 
 @app.route('/contact')
 def render_contact_page():
     cata_list = sidenav1()
     return render_template('contact.html', catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher())
-
+    # rendering contact.html and returning all of the variables needed in the html
 
 @app.route('/login', methods=["GET", "POST"])
 def render_login_page():
@@ -81,7 +83,7 @@ def render_login_page():
         return redirect("/")
 
     return render_template('login.html', logged_in=is_logged_in(), catagories=cata_list, teacher=is_teacher())
-
+    # rendering login.html and returning all of the variables needed in the html
 
 @app.route('/signup', methods=['GET', 'POST'])
 def render_signup_page():
@@ -118,7 +120,7 @@ def render_signup_page():
         return redirect("/login")
 
     return render_template('signup.html', catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher())
-
+    # rendering login.html and returning all of the variables needed in the html
 
 @app.route("/logout")
 def logout():
@@ -165,7 +167,7 @@ def render_catagories(cata_id):
 
     return render_template("catagories.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list,
                            logged_in=is_logged_in(), teacher=is_teacher())
-
+    # rendering home.html and returning all of the variables needed in the html
 
 @app.route("/name/<name_id>", methods=["GET", "POST"])
 def render_maoriword(name_id):
@@ -217,7 +219,7 @@ def render_maoriword(name_id):
 
     return render_template("name.html", cata_names_list=cata_names_list, catagories=cata_list, maori=maori_list,
                            logged_in=is_logged_in(), teacher=is_teacher())
-
+    # rendering name.html and returning all of the variables needed in the html
 
 @app.route("/addcategory", methods=["GET", "POST"])
 def render_addcategory():
@@ -241,7 +243,7 @@ def render_addcategory():
         return redirect("/")
 
     return render_template("addcategory.html", catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher())
-
+    # rendering addcategory.html and returning all of the variables needed in the html
 
 @app.route("/addword", methods=["GET", "POST"])
 def render_addword():
@@ -281,7 +283,7 @@ def render_addword():
         return redirect("/")
 
     return render_template("addword.html", catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher())
-
+    # rendering addword.html and returning all of the variables needed in the html
 
 @app.route("/deletecategory/<cata_id>", methods=["GET", "POST"])
 def render_deletecategory(cata_id):
@@ -320,39 +322,36 @@ def render_deletecategory(cata_id):
 
     return render_template("deletecategory.html", catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher(),
                            cata_names_list=cata_names_list)
+    # rendering deletecategory.html and returning all of the variables needed in the html
 
-
-@app.route("/deleteword", methods=["GET", "POST"])
-def render_deleteword():
+@app.route("/deleteword/<name_id>", methods=["GET", "POST"])
+def render_deleteword(name_id):
     if is_logged_in() and is_teacher():
         cata_list = sidenav1()
-
+        print("sik")
         con = create_connection(DB_NAME)
-        query = "SELECT name, english, category, definition, level, image FROM product"
+        query = "SELECT name_id, name, english, category, definition, level, image FROM product WHERE name_id=?"
         cur = con.cursor()
-        cur.execute(query)
-        product_list = cur.fetchall()
-
-        name = request.args.get('name')
+        cur.execute(query,(name_id,))
+        maori_list = cur.fetchall()
 
         if request.method == "POST" and is_logged_in() and is_teacher():
-            name_id = request.form.get('name_id')
-            print(name_id)
-            query = "DELETE FROM product WHERE name=?"
-            cur = con.cursor()
-            try:
-                cur.execute(query, (name_id,))
-            except sqlite3.IntegrityError:
-                return redirect('/?error=DIDNTWORK69')
+            if request.form['submit'] == 'DELETE NAME (!!CANNOT BE UNDONE!!)':
 
-            con.commit()
-            con.close()
-            return redirect("/")
+                query = "DELETE FROM product WHERE name_id=?"
+                cur = con.cursor()
+                try:
+                    cur.execute(query, (name_id,))
+                except sqlite3.IntegrityError:
+                    return redirect('/?error=DIDNTWORK69')
+
+                con.commit()
+                con.close()
+                return redirect("/")
     else:
         return redirect('/')
 
-    return render_template("deleteword.html", products=product_list, catagories=cata_list, logged_in=is_logged_in(),
-                           name=name, teacher=is_teacher())
-
+    return render_template("deleteword.html", maori=maori_list, catagories=cata_list, logged_in=is_logged_in(), teacher=is_teacher())
+    # rendering delete.html and returning all of the variables needed in the html
 
 app.run(host='0.0.0.0', debug=True)
