@@ -3,14 +3,14 @@
 {% block pageheading %}
 Delete Category
 {% endblock %}
-
+{% block heading %} - Delete {{cata_names_list[0][1]}}{% endblock %}
 {% block main %}
 <form class="dataForm" method="post">
     <div class="form-group">
         <label>Are you sure you would like to delete the category {{cata_names_list[0][1]}}?</label>
         <div>
                 <div></div>
-                <div><input class="button" name="submit" type="submit" value="DELETE CATAGORY (!!CANNOT BE UNDONE!!)"></div>
+                <div><input class="button" name="submit" type="submit" value="DELETE CATEGORY (!!CANNOT BE UNDONE!!)"></div>
         </div>
         <div>
                 <div></div>

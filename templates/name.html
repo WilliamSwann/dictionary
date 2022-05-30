@@ -1,7 +1,7 @@
 {% extends 'base1.html' %}
 
 {% block title %}{{ maori[0][1] }}{% endblock %}
-
+{% block heading %} - {{ maori[0][1] }}{% endblock %}
 
 
 {% block main %}
@@ -9,12 +9,13 @@
            {% for product in maori%}
                 <h1>{{ product[1] }}</h1>
                 <p><strong>English: </strong>{{ product[2] }}</p>
-                <p><strong>Definition: </strong>{{ product[5] }}</p>
-                <p><strong>Level: </strong>{{ product[6] }}</p>
-                <p><strong>image: </strong>{{ product[7] }}</p>
-                <p><strong>last edited by: </strong>{{ product[9] }}</p>
-                <p><strong>last edited: </strong>{{ product[8] }}</p>
-                <img src="/static/images/{{ product[7] }}">
+                <p><strong>Definition: </strong>{{ product[4] }}</p>
+                <p><strong>Level: </strong>{{ product[5] }}</p>
+                <p><strong>image: </strong>{{ product[6] }}</p>
+                <p><strong>last edited by: </strong>{{ product[8] }}</p>
+                <p><strong>last edited: </strong>{{ product[7] }}</p>
+                <img src="/static/images/{{ product[6] }}">
+
 
             {% if logged_in and teacher %}
             <form class="dataForm" method="post">
@@ -28,7 +29,7 @@
     </div>
     <div class="form-group">
         <div class="form-label">Edit Definition:</div>
-        <div class="form-element"><input id="definition" name="definition" type="text" required value="{{product[5]}}"></div>
+        <div class="form-element"><input id="definition" name="definition" type="text" required value="{{product[4]}}"></div>
     </div>
     <div class="form-group">
         <div class="form-label">Edit word level:</div>
@@ -54,9 +55,7 @@
 
 </form>
 
-            <a href="/deleteword/{{maori[0][0]}}"><strong>Delete {{maori[0][1]}}</strong></a>
-
-
+<a href="/deleteword/{{maori[0][0]}}"><strong>Delete {{maori[0][1]}}</strong></a>
 
 			{%endif%}
                 {%endfor%}

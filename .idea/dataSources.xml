@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="smile" uuid="6f97e080-3bbb-428f-a580-3538d3d83646">
+    <data-source source="LOCAL" name="dictionary" uuid="6f97e080-3bbb-428f-a580-3538d3d83646">
       <driver-ref>fa04fb15-d07d-4f37-9c51-1fc999a8aea1</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
